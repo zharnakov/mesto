@@ -1,0 +1,17 @@
+.popup__container-occupation {
+    padding-bottom: 13px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 17px;
+    margin: 0 auto 48px;
+    min-width: 358px;
+    outline: none;
+}
+
+@media screen and (max-width: 535px) {
+    .popup__container-occupation {
+        margin: 0 auto 45px;
+        min-width: 238px;
+    }
+}

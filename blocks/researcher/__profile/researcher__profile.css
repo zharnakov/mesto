@@ -1,0 +1,19 @@
+.researcher__profile {
+    display: flex;
+    max-width: 486px;
+    align-items: center;
+    width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+    .researcher__profile {
+        justify-content: start;
+    }
+}
+
+@media screen and (max-width: 535px) {
+    .researcher__profile {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

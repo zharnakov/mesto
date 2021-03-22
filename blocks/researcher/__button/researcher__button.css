@@ -1,0 +1,18 @@
+.researcher__button {
+    width: 150px;
+    height: 50px;
+    background-color: black;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 535px) {
+    .researcher__button {
+        width: 100%;
+        margin: 36px 0 0;
+    }
+}
+
+.researcher__button:hover {
+    opacity: 0.6;
+}
