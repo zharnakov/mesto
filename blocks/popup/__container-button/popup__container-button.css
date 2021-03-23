@@ -5,6 +5,7 @@
     min-width: 358px;
     min-height: 50px;
     cursor: pointer;
+    border: none;
 }
 
 .popup__container-button:hover {
