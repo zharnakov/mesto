@@ -1,6 +1,6 @@
 .popup__container-button {
-    margin: 0 auto 37px;
-    background-color: black;
+    margin: 18px auto 37px;
+    background-color: rgb(0, 0, 0);
     color: white;
     min-width: 358px;
     min-height: 50px;
@@ -9,12 +9,12 @@
 }
 
 .popup__container-button:hover {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 @media screen and (max-width: 535px) {
     .popup__container-button {
-        margin-bottom: 25px;
+        margin: 15px auto 25px;
         min-width: 238px;
         min-height: 46px;
         cursor: pointer;
