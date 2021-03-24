@@ -26,10 +26,9 @@
 
                         <div class="researcher__profile-text-top">
                             <h1 class="researcher__title">Жак-Ив Кусто</h1>
-                            <img class="researcher__profile-text-top-redaction" id="open_popup_btn" src="./images/rectangle-icon.svg" alt="Картинка заметки">
+                            <button class="researcher__profile-text-top-redaction" id="open_popup_btn" aria-label="плюс" type="button"></button>
                         </div>
-
-                        <h3 class="researcher__profile-text-discription">Исследователь океана</h3>
+                        <p class="researcher__profile-text-discription">Исследователь океана</p>
 
                     </div>
 
@@ -39,16 +38,6 @@
                 <button class="researcher__button" type="button" aria-label="плюс"></button>
 
             </section>
-
-            <div class="popup">
-                <form class="popup__container" name="editProfile">
-                    <h3 class="popup__container-title">Редактировать профиль</h3>
-                    <input class="popup__container-name" type="text" name="name">
-                    <input class="popup__container-occupation" type="text" name="occupation">
-                    <button class="popup__container-button" type="submit">Сохранить</button>
-                    <img class="popup__container-close" id="close_popup_btn" src="./images/close-Icon.svg" alt="закрывающий крестик">
-                </form>
-            </div>
 
             <section class="photo-grid">
 
@@ -106,6 +95,16 @@
         <footer class="footer">
             <img class="footer__logo" src="./images/logofooter.svg" alt="Логотип">
         </footer>
+
+        <div class="popup">
+            <form class="popup__container" name="editProfile">
+                <h3 class="popup__container-title">Редактировать профиль</h3>
+                <input class="popup__container-name" type="text" name="name">
+                <input class="popup__container-occupation" type="text" name="occupation">
+                <button class="popup__container-button" type="submit">Сохранить</button>
+                <img class="popup__container-close" id="close_popup_btn" src="./images/close-Icon.svg" alt="закрывающий крестик">
+            </form>
+        </div>
 
     </div>
     <script src="./scripts/script.js"></script>
