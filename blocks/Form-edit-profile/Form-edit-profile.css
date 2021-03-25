@@ -1,0 +1,12 @@
+.Form-edit-profile {
+    display: flex;
+    flex-direction: column;
+    min-width: 430px;
+    width: 100%;
+}
+
+@media screen and (max-width: 535px) {
+    .Form-edit-profile {
+        min-width: 282px;
+    }
+}
