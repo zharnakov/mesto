@@ -1,4 +1,4 @@
-.popup__container-button {
+.Form-edit-profile__button {
     margin: 18px auto 37px;
     background-color: rgb(0, 0, 0);
     color: white;
@@ -8,12 +8,12 @@
     border: none;
 }
 
-.popup__container-button:hover {
+.Form-edit-profile__button:hover {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
 @media screen and (max-width: 535px) {
-    .popup__container-button {
+    .Form-edit-profile__button {
         margin: 15px auto 25px;
         min-width: 238px;
         min-height: 46px;

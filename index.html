@@ -97,15 +97,16 @@
         </footer>
 
         <div class="popup">
-            <form class="popup__container" name="editProfile">
-                <h3 class="popup__container-title">Редактировать профиль</h3>
-                <input class="popup__container-input" type="text" name="name">
-                <input class="popup__container-input" type="text" name="occupation">
-                <button class="popup__container-button" type="submit">Сохранить</button>
+            <div class="popup__container">
+                <form class="Form-edit-profile" name="editProfile">
+                    <h3 class="Form-edit-profile__title">Редактировать профиль</h3>
+                    <input class="Form-edit-profile__input" type="text" name="name">
+                    <input class="Form-edit-profile__input" type="text" name="occupation">
+                    <button class="Form-edit-profile__button" type="submit">Сохранить</button>
+                </form>
                 <button class="popup__container-close" id="close_popup_btn" aria-label="закрывающий крестик" type="button"></button>
-            </form>
+            </div>
         </div>
-
     </div>
     <script src="./scripts/script.js"></script>
 </body>

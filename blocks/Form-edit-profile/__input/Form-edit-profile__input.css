@@ -1,4 +1,4 @@
-.popup__container-input {
+.Form-edit-profile__input {
     padding-bottom: 13px;
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -10,7 +10,7 @@
 }
 
 @media screen and (max-width: 535px) {
-    .popup__container-input {
+    .Form-edit-profile__input {
         margin: 0 auto 30px;
         min-width: 238px;
     }

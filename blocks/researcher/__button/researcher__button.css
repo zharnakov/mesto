@@ -9,13 +9,7 @@
     background-position: center;
 }
 
-@media screen and (max-width: 700px) {
-    .researcher__button {
-        min-width: 120px;
-    }
-}
-
-@media screen and (max-width: 535px) {
+@media screen and (max-width: 760px) {
     .researcher__button {
         width: 100%;
         margin: 36px 0 0;
