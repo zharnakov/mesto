@@ -1,4 +1,4 @@
-.Form-edit-profile__button {
+.form__submit-button {
     margin: 18px auto 37px;
     background-color: rgb(0, 0, 0);
     color: white;
@@ -8,12 +8,12 @@
     border: none;
 }
 
-.Form-edit-profile__button:hover {
+.form__submit-button:hover {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
 @media screen and (max-width: 535px) {
-    .Form-edit-profile__button {
+    .form__submit-button {
         margin: 15px auto 25px;
         min-width: 238px;
         min-height: 46px;
