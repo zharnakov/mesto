@@ -39,7 +39,7 @@
 
             </section>
 
-            <section class="photo-grid">                
+            <section class="photo-grid">
 
             </section>
 
@@ -49,7 +49,7 @@
             <p class="footer__logo">&copy; 2020 Mesto Russia</p>
         </footer>
 
-        <div class="popup" id="editProfile">
+        <div class="popup" id="redactionProfile">
             <div class="popup__container">
                 <form class="form" name="editProfile">
                     <h3 class="form__title">Редактировать профиль</h3>
@@ -63,13 +63,13 @@
 
         <div class="popup" id="addCard">
             <div class="popup__container">
-                <form class="form" name="editProfile">
+                <form class="form" name="cardForm">
                     <h3 class="form__title">Новое место</h3>
-                    <input class="form__input" type="text" name="name">
-                    <input class="form__input" type="text" name="occupation">
+                    <input class="form__input" type="text" name="titleImage" placeholder="Название">
+                    <input class="form__input" type="text" name="linkImage" placeholder="Ссылка на картинку">
                     <button class="form__submit-button" type="submit">Создать</button>
                 </form>
-                <button class="popup__container-close" id="close_popup_btn" aria-label="закрывающий крестик" type="button"></button>
+                <button class="popup__container-close" id="close_popup" aria-label="закрывающий крестик" type="button"></button>
             </div>
         </div>
 
@@ -78,6 +78,7 @@
     <template id="cardTemplate">
         <article class="photo-grid__item">
             <img class="photo-grid__item-image" src="" alt="">
+            <button class="photo-grid__button" aria-label="удаление карточки" type="button" id="removeCard"></button>
             <div class="photo-grid__item-info">
                 <h2 class="photo-grid__item-info-title"></h2>
                 <img class="photo-grid__item-info-like" src="./images/like-icon.svg" alt="Лайк">
