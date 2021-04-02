@@ -35,68 +35,21 @@
 
                 </div>
 
-                <button class="researcher__button" type="button" aria-label="Добавить картинку"></button>
+                <button class="researcher__button" type="button" id="open_popup_addcards" aria-label="Добавить картинку"></button>
 
             </section>
 
-            <section class="photo-grid">
-
-                <article class="photo-grid__item">
-                    <img class="photo-grid__item-image" src="./images/kirill-pershin-1088404-unsplash.png" alt="Карачаевск">
-                    <div class="photo-grid__item-info">
-                        <h2 class="photo-grid__item-info-title">Карачаевск</h2>
-                        <img class="photo-grid__item-info-like" src="./images/like-icon.svg" alt="Лайк">
-                    </div>
-                </article>
-
-                <article class="photo-grid__item">
-                    <img class="photo-grid__item-image" src="./images/kirill-pershin-1404681-unsplash.png" alt="Гора Эльбрус">
-                    <div class="photo-grid__item-info">
-                        <h2 class="photo-grid__item-info-title">Гора Эльбрус</h2>
-                        <img class="photo-grid__item-info-like" src="./images/like-icon.svg" alt="Лайк">
-                    </div>
-                </article>
-
-                <article class="photo-grid__item">
-                    <img class="photo-grid__item-image" src="./images/kirill-pershin-1556355-unsplash.png" alt="Домбай">
-                    <div class="photo-grid__item-info">
-                        <h2 class="photo-grid__item-info-title">Домбай</h2>
-                        <img class="photo-grid__item-info-like" src="./images/like-icon.svg" alt="Лайк">
-                    </div>
-                </article>
-
-                <article class="photo-grid__item">
-                    <img class="photo-grid__item-image" src="./images/kirill-pershin-1404681-unsplash.png" alt="Гора Эльбрус">
-                    <div class="photo-grid__item-info">
-                        <h2 class="photo-grid__item-info-title">Гора Эльбрус</h2>
-                        <img class="photo-grid__item-info-like" src="./images/like-icon.svg" alt="Лайк">
-                    </div>
-                </article>
-
-                <article class="photo-grid__item">
-                    <img class="photo-grid__item-image" src="./images/kirill-pershin-1556355-unsplash.png" alt="Домбай">
-                    <div class="photo-grid__item-info">
-                        <h2 class="photo-grid__item-info-title">Домбай</h2>
-                        <img class="photo-grid__item-info-like" src="./images/like-icon.svg" alt="Лайк">
-                    </div>
-                </article>
-
-                <article class="photo-grid__item">
-                    <img class="photo-grid__item-image" src="./images/kirill-pershin-1088404-unsplash.png" alt="Карачаево-Черкессия">
-                    <div class="photo-grid__item-info">
-                        <h2 class="photo-grid__item-info-title">Карачаево-Черкессия</h2>
-                        <img class="photo-grid__item-info-like" src="./images/like-icon.svg" alt="Лайк">
-                    </div>
-                </article>
+            <section class="photo-grid">                
 
             </section>
+
         </main>
 
         <footer class="footer">
             <p class="footer__logo">&copy; 2020 Mesto Russia</p>
         </footer>
 
-        <div class="popup">
+        <div class="popup" id="editProfile">
             <div class="popup__container">
                 <form class="form" name="editProfile">
                     <h3 class="form__title">Редактировать профиль</h3>
@@ -107,7 +60,31 @@
                 <button class="popup__container-close" id="close_popup_btn" aria-label="закрывающий крестик" type="button"></button>
             </div>
         </div>
+
+        <div class="popup" id="addCard">
+            <div class="popup__container">
+                <form class="form" name="editProfile">
+                    <h3 class="form__title">Новое место</h3>
+                    <input class="form__input" type="text" name="name">
+                    <input class="form__input" type="text" name="occupation">
+                    <button class="form__submit-button" type="submit">Создать</button>
+                </form>
+                <button class="popup__container-close" id="close_popup_btn" aria-label="закрывающий крестик" type="button"></button>
+            </div>
+        </div>
+
     </div>
+
+    <template id="cardTemplate">
+        <article class="photo-grid__item">
+            <img class="photo-grid__item-image" src="" alt="">
+            <div class="photo-grid__item-info">
+                <h2 class="photo-grid__item-info-title"></h2>
+                <img class="photo-grid__item-info-like" src="./images/like-icon.svg" alt="Лайк">
+            </div>
+        </article>
+    </template>
+
     <script src="./scripts/script.js"></script>
 </body>
 

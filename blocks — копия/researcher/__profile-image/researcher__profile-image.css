@@ -1,0 +1,10 @@
+.researcher__profile-image {
+    border-radius: 50%;
+    max-height: 120px;
+}
+
+@media screen and (max-width: 535px) {
+    .researcher__profile-image {
+        margin-bottom: 20px;
+    }
+}
