@@ -15,12 +15,16 @@ let occupationForm = document.querySelector('input[name="occupation"]');
 let openPopupCard = document.getElementById('open_popup_addcards');
 let openPopupAddCard = document.getElementById('addCard');
 let closePopupCard = document.getElementById('close_popup');
+// попап картинки
+let openPic = document.getElementById('openPic');
+let pic = document.querySelector('.open-pic');
+let closePopupPhoto = document.getElementById('close_popup-pic');
+
 let formCard = document.querySelector('form[name="cardForm"]');
 let titleImage = document.querySelector('input[name="titleImage"]');
 let linkImage = document.querySelector('input[name="linkImage"]');
 
 const photoGgrid = document.querySelector('.photo-grid');
-
 
 //Открытие попапа добавления карточки
 function openPopupEditCard() {
@@ -113,6 +117,19 @@ function addCard(titleValue, linkValue) {
     }
     removeCard.addEventListener('click', deleteCard);
 
+    function openPopupPic() {
+        pic.src = linkValue;
+        pic.alt = titleValue;
+        openPic.classList.add('popup_opened');
+    }
+    cardElement.querySelector('.photo-grid__item-image').addEventListener('click', openPopupPic);
+
     return cardElement;
 
 }
+
+//Закрытие попапа после добавления карточки
+function closePopupPic() {
+    openPic.classList.remove('popup_opened');
+}
+closePopupPhoto.addEventListener('click', closePopupPic);
