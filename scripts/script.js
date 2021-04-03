@@ -6,7 +6,7 @@ let nameResearcher = document.querySelector('.researcher__title');
 let occupationResearcher = document.querySelector('.researcher__profile-text-discription');
 
 const cardTemplate = document.querySelector('#cardTemplate').content;
-let removeCard = cardTemplate.getElementById('removeCard');
+// //объявляем переменную карточки 
 
 let formElement = document.querySelector('form');
 let nameForm = document.querySelector('input[name="name"]');
@@ -21,11 +21,6 @@ let linkImage = document.querySelector('input[name="linkImage"]');
 
 const photoGgrid = document.querySelector('.photo-grid');
 
-// // // удаление карточки грида
-function deleteCard() {
-    addCard.shift();
-}
-removeCard.addEventListener('click', deleteCard);
 
 //Открытие попапа добавления карточки
 function openPopupEditCard() {
@@ -33,17 +28,18 @@ function openPopupEditCard() {
 }
 openPopupCard.addEventListener('click', openPopupEditCard);
 
-//Закрытие попапа добавления карточки
+//Закрытие попапа после добавления карточки
 function closePopupEditCard() {
     openPopupAddCard.classList.remove('popup_opened');
+    formCard.reset();
 }
 closePopupCard.addEventListener('click', closePopupEditCard);
 
-// Закрытие попапа после добавления карточки на крестик
+// Закрытие попапа после добавления карточки "Создать"
 function closePopupCardSave(evt) {
     evt.preventDefault();
+    photoGgrid.prepend(addCard(titleImage.value, linkImage.value));
     closePopupEditCard();
-    addCard(titleImage.value, linkImage.value);
 }
 formCard.addEventListener('submit', closePopupCardSave);
 
@@ -99,15 +95,24 @@ const initialCards = [{
 
 
 initialCards.forEach(function(item) {
-    addCard(item.name, item.link);
+    photoGgrid.prepend(addCard(item.name, item.link));
 })
 
 function addCard(titleValue, linkValue) {
+    const cardTemplate = document.querySelector('#cardTemplate').content;
     const cardElement = cardTemplate.querySelector('.photo-grid__item').cloneNode(true);
 
     cardElement.querySelector('.photo-grid__item-info-title').textContent = titleValue;
     cardElement.querySelector('.photo-grid__item-image').src = linkValue;
     cardElement.querySelector('.photo-grid__item-image').alt = titleValue;
 
-    photoGgrid.prepend(cardElement);
+    let removeCard = cardElement.querySelector('.photo-grid__button');
+
+    function deleteCard() {
+        cardElement.remove();
+    }
+    removeCard.addEventListener('click', deleteCard);
+
+    return cardElement;
+
 }
