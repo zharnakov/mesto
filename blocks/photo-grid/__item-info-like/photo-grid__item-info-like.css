@@ -1,12 +1,15 @@
 .photo-grid__item-info-like {
     max-height: 19px;
+    background-image: url(../../../images/like-icon.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border: none;
+    height: 19px;
+    width: 22px;
 }
 
 .photo-grid__item-info-like:hover {
     cursor: pointer;
     opacity: 0.5;
-}
-
-.photo-grid__item-info-like:active {
-    background-image: url(../../../images/blackLike.svg);
 }

@@ -19,6 +19,7 @@ let closePopupCard = document.getElementById('close_popup');
 let openPic = document.getElementById('openPic');
 let pic = document.querySelector('.open-pic');
 let closePopupPhoto = document.getElementById('close_popup-pic');
+let PhotoText = document.querySelector('.open-pic__text');
 
 let formCard = document.querySelector('form[name="cardForm"]');
 let titleImage = document.querySelector('input[name="titleImage"]');
@@ -121,8 +122,17 @@ function addCard(titleValue, linkValue) {
         pic.src = linkValue;
         pic.alt = titleValue;
         openPic.classList.add('popup_opened');
+        PhotoText.textContent = titleValue;
+
     }
     cardElement.querySelector('.photo-grid__item-image').addEventListener('click', openPopupPic);
+
+    const buttonLike = cardElement.querySelector('.photo-grid__item-info-like');
+
+    function Like(evt) {
+        evt.target.classList.toggle('photo-grid__item-info-like_active');
+    }
+    buttonLike.addEventListener('click', Like);
 
     return cardElement;
 

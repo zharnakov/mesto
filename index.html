@@ -75,8 +75,9 @@
 
         <div class="popup" id="openPic">
             <!-- добавление модификатора под стили для картинки -->
-            <div class="popup__container">
+            <div class="popup__container popup__container_background_none">
                 <img class="open-pic" src="" alt="">
+                <p class="open-pic__text"></p>
                 <button class="popup__container-close" id="close_popup-pic" aria-label="закрывающий крестик" type="button"></button>
             </div>
         </div>
@@ -89,7 +90,7 @@
             <button class="photo-grid__button" aria-label="удаление карточки" type="button"></button>
             <div class="photo-grid__item-info">
                 <h2 class="photo-grid__item-info-title"></h2>
-                <img class="photo-grid__item-info-like" src="./images/like-icon.svg" alt="Лайк">
+                <button class="photo-grid__item-info-like" aria-label="Лайк-сердечко" type="button"></button>
             </div>
         </article>
     </template>
