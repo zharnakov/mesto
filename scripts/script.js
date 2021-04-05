@@ -19,7 +19,7 @@ let closePopupCard = document.getElementById('close_popup');
 let openPic = document.getElementById('openPic');
 let pic = document.querySelector('.open-pic');
 let closePopupPhoto = document.getElementById('close_popup-pic');
-let PhotoText = document.querySelector('.open-pic__text');
+let PhotoText = document.querySelector('.open-pic-text');
 
 let formCard = document.querySelector('form[name="cardForm"]');
 let titleImage = document.querySelector('input[name="titleImage"]');
