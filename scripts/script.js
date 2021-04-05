@@ -1,72 +1,82 @@
-let popup = document.getElementById('redactionProfile');
-let openPopupBtn = document.getElementById('open_popup_btn');
-let closePopupBtn = document.querySelector('.popup__container-close');
-let closePopupBtnSave = document.querySelector('form__submit-button');
-let nameResearcher = document.querySelector('.researcher__title');
-let occupationResearcher = document.querySelector('.researcher__profile-text-discription');
+const popup = document.getElementById('editProfile');
+const openPopupBtn = document.getElementById('open_popup_btn');
+const closePopupBtn = document.querySelector('.popup__container-close');
+const closePopupBtnSave = document.querySelector('form__submit-button');
+const nameResearcher = document.querySelector('.researcher__title');
+const occupationResearcher = document.querySelector('.researcher__profile-text-discription');
 
 const cardTemplate = document.querySelector('#cardTemplate').content;
 // //объявляем переменную карточки 
 
-let formElement = document.querySelector('form');
-let nameForm = document.querySelector('input[name="name"]');
-let occupationForm = document.querySelector('input[name="occupation"]');
+const formElement = document.querySelector('form');
+const nameForm = document.querySelector('input[name="name"]');
+const occupationForm = document.querySelector('input[name="occupation"]');
 
-let openPopupCard = document.getElementById('open_popup_addcards');
-let openPopupAddCard = document.getElementById('addCard');
-let closePopupCard = document.getElementById('close_popup');
+const openPopupCard = document.getElementById('open_popup_addcards');
+const openPopupAddCard = document.getElementById('addCard');
+const closePopupCard = document.getElementById('close_popup');
 // попап картинки
-let openPic = document.getElementById('openPic');
-let pic = document.querySelector('.open-pic');
-let closePopupPhoto = document.getElementById('close_popup-pic');
-let PhotoText = document.querySelector('.open-pic-text');
+const openPic = document.getElementById('openPic');
+const pic = document.querySelector('.open-pic');
+const closePopupPhoto = document.getElementById('close_popup-pic');
+const photoText = document.querySelector('.open-pic-text');
 
-let formCard = document.querySelector('form[name="cardForm"]');
-let titleImage = document.querySelector('input[name="titleImage"]');
-let linkImage = document.querySelector('input[name="linkImage"]');
+const formCard = document.querySelector('form[name="cardForm"]');
+const titleImage = document.querySelector('input[name="titleImage"]');
+const linkImage = document.querySelector('input[name="linkImage"]');
 
-const photoGgrid = document.querySelector('.photo-grid');
+const photoGrid = document.querySelector('.photo-grid');
+
+function openModal(modal) {
+    modal.classList.add('popup_opened');
+}
+
+function closeModal(modal) {
+    modal.classList.remove('popup_opened');
+}
+
 
 //Открытие попапа добавления карточки
-function openPopupEditCard() {
-    openPopupAddCard.classList.add('popup_opened');
-}
-openPopupCard.addEventListener('click', openPopupEditCard);
+
+openPopupCard.addEventListener('click', function() {
+    openModal(openPopupAddCard);
+});
 
 //Закрытие попапа после добавления карточки
-function closePopupEditCard() {
-    openPopupAddCard.classList.remove('popup_opened');
+
+closePopupCard.addEventListener('click', function() {
+    closeModal(openPopupAddCard);
     formCard.reset();
-}
-closePopupCard.addEventListener('click', closePopupEditCard);
+});
 
 // Закрытие попапа после добавления карточки "Создать"
 function closePopupCardSave(evt) {
     evt.preventDefault();
-    photoGgrid.prepend(addCard(titleImage.value, linkImage.value));
-    closePopupEditCard();
+    photoGrid.prepend(addCard(titleImage.value, linkImage.value));
+    closeModal(openPopupAddCard);
+    formCard.reset();
 }
 formCard.addEventListener('submit', closePopupCardSave);
 
 
 //Открытие попапа редактирования профайла
-function openPopup() {
-    popup.classList.add('popup_opened');
+
+openPopupBtn.addEventListener('click', function() {
+    openModal(popup);
     nameForm.value = nameResearcher.textContent;
     occupationForm.value = occupationResearcher.textContent;
-}
-openPopupBtn.addEventListener('click', openPopup);
+});
 
 //Закрытие попапа редактирования профайла
-function closePopup() {
-    popup.classList.remove('popup_opened');
-}
-closePopupBtn.addEventListener('click', closePopup);
+closePopupBtn.addEventListener('click', function() {
+    closeModal(popup);
+});
 
-//Закрытие попапа редактирования профайла на крестик
+//Закрытие попапа редактирования профайла
+
 function closePopupSave(evt) {
     evt.preventDefault();
-    closePopup();
+    closeModal(popup);
     occupationResearcher.textContent = occupationForm.value;
     nameResearcher.textContent = nameForm.value;
 }
@@ -100,18 +110,17 @@ const initialCards = [{
 
 
 initialCards.forEach(function(item) {
-    photoGgrid.prepend(addCard(item.name, item.link));
+    photoGrid.prepend(addCard(item.name, item.link));
 })
 
 function addCard(titleValue, linkValue) {
     const cardTemplate = document.querySelector('#cardTemplate').content;
     const cardElement = cardTemplate.querySelector('.photo-grid__item').cloneNode(true);
-
     cardElement.querySelector('.photo-grid__item-info-title').textContent = titleValue;
     cardElement.querySelector('.photo-grid__item-image').src = linkValue;
     cardElement.querySelector('.photo-grid__item-image').alt = titleValue;
 
-    let removeCard = cardElement.querySelector('.photo-grid__button');
+    const removeCard = cardElement.querySelector('.photo-grid__button');
 
     function deleteCard() {
         cardElement.remove();
@@ -121,25 +130,26 @@ function addCard(titleValue, linkValue) {
     function openPopupPic() {
         pic.src = linkValue;
         pic.alt = titleValue;
-        openPic.classList.add('popup_opened');
-        PhotoText.textContent = titleValue;
+        openModal(openPic);
+        photoText.textContent = titleValue;
 
     }
     cardElement.querySelector('.photo-grid__item-image').addEventListener('click', openPopupPic);
 
+
     const buttonLike = cardElement.querySelector('.photo-grid__item-info-like');
 
-    function Like(evt) {
+    function like(evt) {
         evt.target.classList.toggle('photo-grid__item-info-like_active');
     }
-    buttonLike.addEventListener('click', Like);
+    buttonLike.addEventListener('click', like);
 
     return cardElement;
 
 }
 
 //Закрытие попапа после добавления карточки
-function closePopupPic() {
-    openPic.classList.remove('popup_opened');
-}
-closePopupPhoto.addEventListener('click', closePopupPic);
+
+closePopupPhoto.addEventListener('click', function() {
+    closeModal(openPic);
+});
