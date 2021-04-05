@@ -7,6 +7,7 @@
     border: none;
     height: 19px;
     width: 22px;
+    outline: none;
 }
 
 .photo-grid__item-info-like:hover {
