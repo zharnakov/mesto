@@ -51,10 +51,16 @@
 
         <div class="popup" id="editProfile">
             <div class="popup__container">
-                <form class="form" name="editProf">
+                <form class="form" name="editProfile" novalidate>
                     <h3 class="form__title">Редактировать профиль</h3>
-                    <input class="form__input" type="text" name="name">
-                    <input class="form__input" type="text" name="occupation">
+                    <div class="form__section">
+                        <input class="form__input" type="text" name="name" id="input-name" required minlength="2" maxlength="40">
+                        <span class="form__input-error input-name-error"></span>
+                    </div>
+                    <div class="form__section">
+                        <input class="form__input" type="text" name="occupation" id="input-occupation" required minlength="2" maxlength="200">
+                        <span class="form__input-error input-occupation-error"></span>
+                    </div>
                     <button class="form__submit-button" type="submit">Сохранить</button>
                 </form>
                 <button class="popup__container-close" id="close_popup_btn" aria-label="закрывающий крестик" type="button"></button>
@@ -63,10 +69,16 @@
 
         <div class="popup" id="addCard">
             <div class="popup__container">
-                <form class="form" name="cardForm">
+                <form class="form" name="cardForm" novalidate>
                     <h3 class="form__title">Новое место</h3>
-                    <input class="form__input" type="text" name="titleImage" placeholder="Название">
-                    <input class="form__input" type="text" name="linkImage" placeholder="Ссылка на картинку">
+                    <div class="form__section">
+                        <input class="form__input" type="text" name="titleImage" id="input-titleImage" placeholder="Название" required minlength="2" maxlength="30">
+                        <span class="form__input-error input-titleImage-error"></span>
+                    </div>
+                    <div class="form__section">
+                        <input class="form__input" type="url" name="linkImage" id="input-linkImage" placeholder="Ссылка на картинку" required>
+                        <span class="form__input-error input-linkImage-error"></span>
+                    </div>
                     <button class="form__submit-button" type="submit">Создать</button>
                 </form>
                 <button class="popup__container-close" id="close_popup" aria-label="закрывающий крестик" type="button"></button>
@@ -75,7 +87,7 @@
 
         <div class="popup" id="openPic">
             <div class="popup__container popup__container_background_none">
-                <img class="open-pic">
+                <img class="open-pic" src="#" alt="">
                 <p class="open-pic-text"></p>
                 <button class="popup__container-close" id="close_popup-pic" aria-label="закрывающий крестик" type="button"></button>
             </div>
@@ -95,6 +107,7 @@
     </template>
 
     <script src="./scripts/script.js"></script>
+    <script src="./scripts/validate.js"></script>
 </body>
 
 </html>
