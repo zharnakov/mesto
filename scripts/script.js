@@ -1,3 +1,5 @@
+import {Card} from './Card'; 
+
 const page = document.querySelector('.page');
 const photoGrid = document.querySelector('.photo-grid');
 const cardTemplate = document.querySelector('#cardTemplate').content;
@@ -127,52 +129,17 @@ const initialCards = [{
     }
 ];
 
+// initialCards.forEach(function(item) {
+//     photoGrid.prepend(addCard(item.name, item.link));
+// })
+
 initialCards.forEach(function(item) {
-    photoGrid.prepend(addCard(item.name, item.link));
-})
-
-function addCard(titleValue, linkValue) {
-// копирование Template
-    const cardTemplate = document.querySelector('#cardTemplate').content;
-    const cardElement = cardTemplate.querySelector('.photo-grid__item').cloneNode(true);
-// создание элемента карточки 
-    cardElement.querySelector('.photo-grid__item-info-title').textContent = titleValue;
-    cardElement.querySelector('.photo-grid__item-image').src = linkValue;
-    cardElement.querySelector('.photo-grid__item-image').alt = titleValue;
-
-// "корзина"
-    const buttonRemoveCard = cardElement.querySelector('.photo-grid__button');
-
-// реализация удаления элемента
-    function handleRemoveCard() {
-        cardElement.remove();
-    }
-// слушатель на корзину
-    buttonRemoveCard.addEventListener('click', handleRemoveCard);
-
-// функция открывающая элемент в отдельный попап
-    function openPicturePopup() {
-        openedPicture.src = linkValue;
-        openedPicture.alt = titleValue;
-        openModal(picturePopup);
-        openedPictureLabel.textContent = titleValue;
-    }
-// слушатель, чтобы при клике на элемент открывался отдельный попап с картинкой
-    cardElement.querySelector('.photo-grid__item-image').addEventListener('click', openPicturePopup);
-
-    const likeButton = cardElement.querySelector('.photo-grid__item-info-like');
-
-// Like
-    function handleLikeClick(evt) {
-        evt.target.classList.toggle('photo-grid__item-info-like_active');
-    }
-    likeButton.addEventListener('click', handleLikeClick);
-
-    return cardElement;
-
-}
+        const card = new Card (item, '#cardTemplate')
+    })
 
 // закртыие попапа с элементом в отдельном окне
 crossButtonPicturePopup.addEventListener('click', function() {
     closeModal(picturePopup);
 });
+
+export {openModal};
