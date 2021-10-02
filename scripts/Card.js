@@ -10,8 +10,8 @@ class Card {
 
     constructor (data, cardSelector) {
         this._cardSelector = cardSelector;
-        this._title = data.titleValue;
-        this._image = data.linkValue;
+        this._title = data.name;
+        this._image = data.link;
     }
 
 _getTemplate() {
@@ -48,7 +48,7 @@ _setEventListeners() {
         this._handleRemoveCard();
       });
 
-      this._likeButton.addEventListener('click', _handleLikeClick);
+      this._likeButton.addEventListener('click', this._handleLikeClick);
 }
 
 _handleRemoveCard() {

@@ -1,4 +1,4 @@
-import {Card} from './Card'; 
+import {Card} from './Card.js'; 
 
 const page = document.querySelector('.page');
 const photoGrid = document.querySelector('.photo-grid');
@@ -133,9 +133,16 @@ const initialCards = [{
 //     photoGrid.prepend(addCard(item.name, item.link));
 // })
 
-initialCards.forEach(function(item) {
-        const card = new Card (item, '#cardTemplate')
-    })
+// initialCards.forEach(function(item) {
+//         const card = new Card (item, '#cardTemplate')
+//     })
+
+initialCards.forEach((item) => {
+    const card = new Card (item, '#cardTemplate');
+    const cardElement = card.generateCard();
+    photoGrid.prepend(cardElement);
+})
+
 
 // закртыие попапа с элементом в отдельном окне
 crossButtonPicturePopup.addEventListener('click', function() {
