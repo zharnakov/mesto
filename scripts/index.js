@@ -77,9 +77,14 @@ crossButtonAddCard.addEventListener('click', () => {
 
 function handleSubmitFormAddCard(evt) {
     evt.preventDefault();
-    photoGrid.prepend(addCard(titleImageInput.value, linkImageInput.value));
+    const data = {
+        name: titleImageInput.value, 
+        link: linkImageInput.value 
+    }
+    createCard(data)
     closeModal(popupAddCard);
 }
+
 formAddCard.addEventListener('submit', handleSubmitFormAddCard);
 
 
@@ -131,10 +136,14 @@ const initialCards = [{
 ];
 
 initialCards.forEach((item) => {
-    const card = new Card (item, '#cardTemplate');
-    const cardElement = card.generateCard();
-    photoGrid.prepend(cardElement);
+    createCard(item)
 })
+
+function createCard(data) {
+    const card = new Card (data, '#cardTemplate');
+    const cardElement = card.generateCard();
+    photoGrid.prepend(cardElement); 
+}
 
 const formList = Array.from(document.querySelectorAll('.form'));
 
