@@ -1,4 +1,4 @@
-import {openModal} from './script.js'; 
+import {openModal} from './index.js'; 
 
 const openedPicture = document.querySelector('.open-pic');
 const openedPictureLabel = document.querySelector('.open-pic-text');
