@@ -1,3 +1,6 @@
+import {Card} from './Card.js'; 
+import {FormValidator} from './FormValidator.js';
+
 const page = document.querySelector('.page');
 const photoGrid = document.querySelector('.photo-grid');
 const cardTemplate = document.querySelector('#cardTemplate').content;
@@ -54,8 +57,8 @@ function handleOverlayClick(evt) {
     }
 }
 
-const disableButton = (formEditProfile) => {
-    const submitButton = formEditProfile.querySelector('.form__submit-button');
+const disableButton = (genericForm) => {
+    const submitButton = genericForm.querySelector('.form__submit-button');
     submitButton.classList.add('form__submit_inactive');
     submitButton.setAttribute("disabled", "disabled");
 }
@@ -127,43 +130,31 @@ const initialCards = [{
     }
 ];
 
-initialCards.forEach(function(item) {
-    photoGrid.prepend(addCard(item.name, item.link));
+initialCards.forEach((item) => {
+    const card = new Card (item, '#cardTemplate');
+    const cardElement = card.generateCard();
+    photoGrid.prepend(cardElement);
 })
 
-function addCard(titleValue, linkValue) {
-    const cardTemplate = document.querySelector('#cardTemplate').content;
-    const cardElement = cardTemplate.querySelector('.photo-grid__item').cloneNode(true);
-    cardElement.querySelector('.photo-grid__item-info-title').textContent = titleValue;
-    cardElement.querySelector('.photo-grid__item-image').src = linkValue;
-    cardElement.querySelector('.photo-grid__item-image').alt = titleValue;
+const formList = Array.from(document.querySelectorAll('.form'));
 
-    const buttonRemoveCard = cardElement.querySelector('.photo-grid__button');
+const configObject = {
+    formSelector: '.form',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__submit-button',
+    inactiveButtonClass: 'form__submit_inactive',
+    inputErrorClass: 'form__input_type_error',
+    errorClass: 'form__input-error_active'
+};
 
-    function handleRemoveCard() {
-        cardElement.remove();
-    }
-    buttonRemoveCard.addEventListener('click', handleRemoveCard);
+formList.forEach((formElement) => {
+    const formValidate = new FormValidator (configObject, formElement);
+    formValidate.enableValidation();
+})
 
-    function openPicturePopup() {
-        openedPicture.src = linkValue;
-        openedPicture.alt = titleValue;
-        openModal(picturePopup);
-        openedPictureLabel.textContent = titleValue;
-    }
-    cardElement.querySelector('.photo-grid__item-image').addEventListener('click', openPicturePopup);
-
-    const likeButton = cardElement.querySelector('.photo-grid__item-info-like');
-
-    function handleLikeClick(evt) {
-        evt.target.classList.toggle('photo-grid__item-info-like_active');
-    }
-    likeButton.addEventListener('click', handleLikeClick);
-
-    return cardElement;
-
-}
-
+// закртыие попапа с элементом в отдельном окне
 crossButtonPicturePopup.addEventListener('click', function() {
     closeModal(picturePopup);
 });
+
+export {openModal};
