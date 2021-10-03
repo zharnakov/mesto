@@ -60,6 +60,21 @@ class FormValidator {
       this._setEventListeners();
     }
 
+    disableButton() {
+        const buttonElement = this._formElement.querySelector(this._configObject.submitButtonSelector);
+        buttonElement.setAttribute("disabled", "disabled");
+        buttonElement.classList.add(this._configObject.inactiveButtonClass);
+    }
+
+    cleanErrorMesages() {
+        const inputList = Array.from(this._formElement.querySelectorAll(this._configObject.inputSelector));
+        inputList.forEach((inputElement) => {
+            this._hideInputError(inputElement);
+        });
+    }
+
+
+
 }
 
 export {FormValidator};
