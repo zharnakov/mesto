@@ -3,7 +3,6 @@ import {openModal} from './index.js';
 const openedPicture = document.querySelector('.open-pic');
 const openedPictureLabel = document.querySelector('.open-pic-text');
 const picturePopup = document.getElementById('openPic');
-const crossButtonPicturePopup = document.getElementById('close_popup-pic');
 
 
 class Card {

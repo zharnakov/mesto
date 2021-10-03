@@ -3,7 +3,6 @@ import {FormValidator} from './FormValidator.js';
 
 const page = document.querySelector('.page');
 const photoGrid = document.querySelector('.photo-grid');
-const cardTemplate = document.querySelector('#cardTemplate').content;
 const researcherName = document.querySelector('.researcher__title');
 const researcherOccupation = document.querySelector('.researcher__profile-text-discription');
 
@@ -26,8 +25,6 @@ const linkImageInput = document.querySelector('input[name="linkImage"]');
 // попап картинки
 const picturePopup = document.getElementById('openPic');
 const crossButtonPicturePopup = document.getElementById('close_popup-pic');
-const openedPicture = document.querySelector('.open-pic');
-const openedPictureLabel = document.querySelector('.open-pic-text');
 
 const escKeyCode = 27;
 
@@ -57,18 +54,14 @@ function handleOverlayClick(evt) {
     }
 }
 
-const disableButton = (genericForm) => {
-    const submitButton = genericForm.querySelector('.form__submit-button');
-    submitButton.classList.add('form__submit_inactive');
-    submitButton.setAttribute("disabled", "disabled");
-}
-
 //Обработка попапа добавления карточки
 
 buttonAddCard.addEventListener('click', function() {
     formAddCard.reset();
     openModal(popupAddCard);
-    disableButton(formAddCard);
+    const validation = new FormValidator (configObject, formAddCard);
+    validation.disableButton();
+    validation.cleanErrorMesages();
 });
 
 crossButtonAddCard.addEventListener('click', () => {
@@ -77,9 +70,14 @@ crossButtonAddCard.addEventListener('click', () => {
 
 function handleSubmitFormAddCard(evt) {
     evt.preventDefault();
-    photoGrid.prepend(addCard(titleImageInput.value, linkImageInput.value));
+    const data = {
+        name: titleImageInput.value, 
+        link: linkImageInput.value 
+    }
+    createCard(data)
     closeModal(popupAddCard);
 }
+
 formAddCard.addEventListener('submit', handleSubmitFormAddCard);
 
 
@@ -89,7 +87,9 @@ buttonOpenEditProfile.addEventListener('click', function() {
     openModal(popupEditProfile);
     nameInput.value = researcherName.textContent;
     occupationInput.value = researcherOccupation.textContent;
-    disableButton(formEditProfile);
+    const validation = new FormValidator (configObject, formEditProfile);
+    validation.disableButton();
+    validation.cleanErrorMesages();
 });
 
 crossButtonEditProfile.addEventListener('click', function() {
@@ -131,10 +131,14 @@ const initialCards = [{
 ];
 
 initialCards.forEach((item) => {
-    const card = new Card (item, '#cardTemplate');
-    const cardElement = card.generateCard();
-    photoGrid.prepend(cardElement);
+    createCard(item)
 })
+
+function createCard(data) {
+    const card = new Card (data, '#cardTemplate');
+    const cardElement = card.generateCard();
+    photoGrid.prepend(cardElement); 
+}
 
 const formList = Array.from(document.querySelectorAll('.form'));
 
