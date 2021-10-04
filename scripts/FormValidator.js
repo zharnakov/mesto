@@ -2,6 +2,9 @@ class FormValidator {
     constructor (configObject, formElement) {
         this._configObject = configObject;
         this._formElement = formElement;
+        this._inputListArray = Array.from(this._formElement.querySelectorAll(this._configObject.inputSelector));
+        this._buttonElement = this._formElement.querySelector(this._configObject.submitButtonSelector);
+
     }
 
     _showInputError(inputElement, errorMessage) {
@@ -43,15 +46,12 @@ class FormValidator {
     }
 
     _setEventListeners() {
-        const inputList = Array.from(this._formElement.querySelectorAll(this._configObject.inputSelector));
-        const buttonElement = this._formElement.querySelector(this._configObject.submitButtonSelector);
+        this._toggleButtonState(this._inputListArray, this._buttonElement);
     
-        this._toggleButtonState(inputList, buttonElement);
-    
-        inputList.forEach((inputElement) => {
+        this._inputListArray.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._checkInputValidity(inputElement);
-                this._toggleButtonState(inputList, buttonElement);
+                this._toggleButtonState(this._inputListArray, this._buttonElement);
             });
         });
     }
@@ -61,20 +61,15 @@ class FormValidator {
     }
 
     disableButton() {
-        const buttonElement = this._formElement.querySelector(this._configObject.submitButtonSelector);
-        buttonElement.setAttribute("disabled", "disabled");
-        buttonElement.classList.add(this._configObject.inactiveButtonClass);
+        this._buttonElement.setAttribute("disabled", "disabled");
+        this._buttonElement.classList.add(this._configObject.inactiveButtonClass);
     }
 
     cleanErrorMesages() {
-        const inputList = Array.from(this._formElement.querySelectorAll(this._configObject.inputSelector));
-        inputList.forEach((inputElement) => {
+        this._inputListArray.forEach((inputElement) => {
             this._hideInputError(inputElement);
         });
     }
-
-
-
 }
 
 export {FormValidator};
