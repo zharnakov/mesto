@@ -25,11 +25,11 @@ _getTemplate() {
 
 generateCard() {
     this._element = this._getTemplate();
-    this._element.querySelector('.photo-grid__item-info-title').textContent = this._title;
-    this._element.querySelector('.photo-grid__item-image').src = this._image;
-    this._element.querySelector('.photo-grid__item-image').alt = this._title;
-    this._buttonRemoveCard = this._element.querySelector('.photo-grid__button');
     this._picItem = this._element.querySelector('.photo-grid__item-image');
+    this._element.querySelector('.photo-grid__item-info-title').textContent = this._title;
+    this._picItem.src = this._image;
+    this._picItem.alt = this._title;
+    this._buttonRemoveCard = this._element.querySelector('.photo-grid__button');
     this._likeButton = this._element.querySelector('.photo-grid__item-info-like');
 
     this._setEventListeners();

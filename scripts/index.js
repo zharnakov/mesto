@@ -49,8 +49,7 @@ function handleEscKeyup(evt) {
 
 function handleOverlayClick(evt) {
     if (evt.target === evt.currentTarget) {
-        const activeModal = page.querySelector('.popup_opened');
-        closeModal(activeModal);
+        closeModal(evt.currentTarget);
     }
 }
 
@@ -59,9 +58,8 @@ function handleOverlayClick(evt) {
 buttonAddCard.addEventListener('click', function() {
     formAddCard.reset();
     openModal(popupAddCard);
-    const validation = new FormValidator (configObject, formAddCard);
-    validation.disableButton();
-    validation.cleanErrorMesages();
+    formAddCardValidation.disableButton();
+    formAddCardValidation.cleanErrorMesages();
 });
 
 crossButtonAddCard.addEventListener('click', () => {
@@ -74,7 +72,7 @@ function handleSubmitFormAddCard(evt) {
         name: titleImageInput.value, 
         link: linkImageInput.value 
     }
-    createCard(data)
+    photoGrid.prepend(createCard(data))
     closeModal(popupAddCard);
 }
 
@@ -87,9 +85,8 @@ buttonOpenEditProfile.addEventListener('click', function() {
     openModal(popupEditProfile);
     nameInput.value = researcherName.textContent;
     occupationInput.value = researcherOccupation.textContent;
-    const validation = new FormValidator (configObject, formEditProfile);
-    validation.disableButton();
-    validation.cleanErrorMesages();
+    formEditProfileValidation.disableButton();
+    formEditProfileValidation.cleanErrorMesages();
 });
 
 crossButtonEditProfile.addEventListener('click', function() {
@@ -131,16 +128,14 @@ const initialCards = [{
 ];
 
 initialCards.forEach((item) => {
-    createCard(item)
+    photoGrid.prepend(createCard(item))
 })
 
 function createCard(data) {
     const card = new Card (data, '#cardTemplate');
     const cardElement = card.generateCard();
-    photoGrid.prepend(cardElement); 
+    return cardElement
 }
-
-const formList = Array.from(document.querySelectorAll('.form'));
 
 const configObject = {
     formSelector: '.form',
@@ -151,10 +146,11 @@ const configObject = {
     errorClass: 'form__input-error_active'
 };
 
-formList.forEach((formElement) => {
-    const formValidate = new FormValidator (configObject, formElement);
-    formValidate.enableValidation();
-})
+const formAddCardValidation = new FormValidator (configObject, formAddCard);
+const formEditProfileValidation = new FormValidator (configObject, formEditProfile);
+
+formAddCardValidation.enableValidation();
+formEditProfileValidation.enableValidation();
 
 // закртыие попапа с элементом в отдельном окне
 crossButtonPicturePopup.addEventListener('click', function() {
