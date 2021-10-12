@@ -1,5 +1,6 @@
-import {Card} from './Card.js'; 
-import {FormValidator} from './FormValidator.js';
+import {Card} from '../components/Card.js'; 
+import {FormValidator} from '../components/FormValidator.js';
+import Section from '../components/Section.js';
 
 const page = document.querySelector('.page');
 const photoGrid = document.querySelector('.photo-grid');
@@ -127,15 +128,18 @@ const initialCards = [{
     }
 ];
 
-initialCards.forEach((item) => {
-    photoGrid.prepend(createCard(item))
-})
 
-function createCard(data) {
-    const card = new Card (data, '#cardTemplate');
-    const cardElement = card.generateCard();
-    return cardElement
-}
+const cardList = new Section ({
+    items: initialCards, 
+    renderer: (item) => {
+        const card = new Card (item, '#cardTemplate');
+        const cardElement = card.generateCard();
+
+        cardList.addItem(cardElement)
+    }
+}, '.photo-grid');
+
+cardList.renderItems();
 
 const configObject = {
     formSelector: '.form',
