@@ -1,6 +1,7 @@
 import {Card} from '../components/Card.js'; 
 import {FormValidator} from '../components/FormValidator.js';
 import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
 
 const page = document.querySelector('.page');
 const photoGrid = document.querySelector('.photo-grid');
@@ -24,47 +25,19 @@ const titleImageInput = document.querySelector('input[name="titleImage"]');
 const linkImageInput = document.querySelector('input[name="linkImage"]');
 
 // попап картинки
-const picturePopup = document.getElementById('openPic');
 const crossButtonPicturePopup = document.getElementById('close_popup-pic');
 
-const escKeyCode = 27;
-
-function openModal(modal) {
-    modal.classList.add('popup_opened');
-    page.addEventListener('keyup', handleEscKeyup);
-    modal.addEventListener('click', handleOverlayClick);
-}
-
-function closeModal(modal) {
-    modal.classList.remove('popup_opened');
-    page.removeEventListener('keyup', handleEscKeyup);
-    modal.removeEventListener('click', handleOverlayClick);
-}
-
-function handleEscKeyup(evt) {
-    if (evt.keyCode === escKeyCode) {
-        const activeModal = page.querySelector('.popup_opened');
-        closeModal(activeModal);
-    }
-}
-
-function handleOverlayClick(evt) {
-    if (evt.target === evt.currentTarget) {
-        closeModal(evt.currentTarget);
-    }
-}
+const editProfilePopup = new Popup('#editProfile');
+const addCardPopup = new Popup('#addCard');
+const picturePopup = new Popup('#openPic');
 
 //Обработка попапа добавления карточки
 
 buttonAddCard.addEventListener('click', function() {
     formAddCard.reset();
-    openModal(popupAddCard);
+    addCardPopup.open();
     formAddCardValidation.disableButton();
     formAddCardValidation.cleanErrorMesages();
-});
-
-crossButtonAddCard.addEventListener('click', () => {
-    closeModal(popupAddCard);
 });
 
 function handleSubmitFormAddCard(evt) {
@@ -74,7 +47,7 @@ function handleSubmitFormAddCard(evt) {
         link: linkImageInput.value 
     }
     photoGrid.prepend(createCard(data))
-    closeModal(popupAddCard);
+    addCardPopup.close();
 }
 
 formAddCard.addEventListener('submit', handleSubmitFormAddCard);
@@ -83,20 +56,16 @@ formAddCard.addEventListener('submit', handleSubmitFormAddCard);
 //Обработка попапа редактирования профайла
 
 buttonOpenEditProfile.addEventListener('click', function() {
-    openModal(popupEditProfile);
+    editProfilePopup.open();
     nameInput.value = researcherName.textContent;
     occupationInput.value = researcherOccupation.textContent;
     formEditProfileValidation.disableButton();
     formEditProfileValidation.cleanErrorMesages();
 });
 
-crossButtonEditProfile.addEventListener('click', function() {
-    closeModal(popupEditProfile);
-});
-
 function handleSubmitFormEditProfile(evt) {
     evt.preventDefault();
-    closeModal(popupEditProfile);
+    editProfilePopup.close();
     researcherOccupation.textContent = occupationInput.value;
     researcherName.textContent = nameInput.value;
 }
@@ -128,18 +97,23 @@ const initialCards = [{
     }
 ];
 
+function handleCardClick() {
+    picturePopup.open();
+}
 
 const cardList = new Section ({
     items: initialCards, 
     renderer: (item) => {
-        const card = new Card (item, '#cardTemplate');
+        const card = new Card (item, '#cardTemplate',handleCardClick);
         const cardElement = card.generateCard();
-
         cardList.addItem(cardElement)
     }
 }, '.photo-grid');
 
 cardList.renderItems();
+
+
+
 
 const configObject = {
     formSelector: '.form',
@@ -156,9 +130,3 @@ const formEditProfileValidation = new FormValidator (configObject, formEditProfi
 formAddCardValidation.enableValidation();
 formEditProfileValidation.enableValidation();
 
-// закртыие попапа с элементом в отдельном окне
-crossButtonPicturePopup.addEventListener('click', function() {
-    closeModal(picturePopup);
-});
-
-export {openModal};
