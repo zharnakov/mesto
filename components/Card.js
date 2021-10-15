@@ -1,8 +1,3 @@
-const openedPicture = document.querySelector('.open-pic');
-const openedPictureLabel = document.querySelector('.open-pic-text');
-const picturePopup = document.getElementById('openPic');
-
-
 class Card {
 
     constructor (data, cardSelector, handleCardClick) {
@@ -53,12 +48,8 @@ _handleRemoveCard() {
     this._element.remove()
 }
 
-// дополнительный попап при клике на элемент 
 _openPicturePopup() {
-    openedPicture.src = this._image;
-    openedPicture.alt = this._title;
-    openedPictureLabel.textContent = this._title;
-    this._handleCardClick();
+    this._handleCardClick(this._image, this._title);
 }
 
 _handleLikeClick (evt) {

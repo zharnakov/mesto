@@ -2,34 +2,27 @@ import {Card} from '../components/Card.js';
 import {FormValidator} from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 
-const page = document.querySelector('.page');
 const photoGrid = document.querySelector('.photo-grid');
 const researcherName = document.querySelector('.researcher__title');
 const researcherOccupation = document.querySelector('.researcher__profile-text-discription');
 
 // попап редактирования профайла
-const popupEditProfile = document.getElementById('editProfile');
 const buttonOpenEditProfile = document.getElementById('open_popup_btn');
-const crossButtonEditProfile = document.querySelector('.popup__container-close');
 const formEditProfile = document.querySelector('form[name="editProfile"]');
 const nameInput = document.querySelector('input[name="name"]');
 const occupationInput = document.querySelector('input[name="occupation"]');
 
 //  попап добавления карточки
 const buttonAddCard = document.getElementById('open_popup_addcards');
-const popupAddCard = document.getElementById('addCard');
-const crossButtonAddCard = document.getElementById('close_popup');
 const formAddCard = document.querySelector('form[name="cardForm"]');
 const titleImageInput = document.querySelector('input[name="titleImage"]');
 const linkImageInput = document.querySelector('input[name="linkImage"]');
 
-// попап картинки
-const crossButtonPicturePopup = document.getElementById('close_popup-pic');
-
 const editProfilePopup = new Popup('#editProfile');
 const addCardPopup = new Popup('#addCard');
-const picturePopup = new Popup('#openPic');
+const picturePopup = new PopupWithImage('#openPic');
 
 //Обработка попапа добавления карточки
 
@@ -97,22 +90,22 @@ const initialCards = [{
     }
 ];
 
-function handleCardClick() {
-    picturePopup.open();
+function handleCardClick(image, title) {
+    picturePopup.open(image, title);
 }
+
+
 
 const cardList = new Section ({
     items: initialCards, 
     renderer: (item) => {
-        const card = new Card (item, '#cardTemplate',handleCardClick);
+        const card = new Card (item, '#cardTemplate', handleCardClick);
         const cardElement = card.generateCard();
         cardList.addItem(cardElement)
     }
 }, '.photo-grid');
 
 cardList.renderItems();
-
-
 
 
 const configObject = {

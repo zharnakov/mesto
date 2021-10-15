@@ -3,8 +3,7 @@ const escKeyCode = 27;
 
 export default class Popup {
     constructor(selector) {
-        this._selector = selector;
-        this._modal = document.querySelector(this._selector);
+        this._modal = document.querySelector(selector);
         this._crossButton = this._modal.querySelector('.popup__container-close');
     }
 
