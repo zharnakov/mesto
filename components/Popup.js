@@ -5,6 +5,8 @@ export default class Popup {
     constructor(selector) {
         this._modal = document.querySelector(selector);
         this._crossButton = this._modal.querySelector('.popup__container-close');
+        this._bindedListenerOverlay = this._handleOverlayClick.bind(this);
+        this._bindedListenerEsc = this._handleEscClose.bind(this);
     }
 
     open() {
@@ -30,15 +32,16 @@ export default class Popup {
     }
 
     setEventListeners() {
-        page.addEventListener('keyup', this._handleEscClose.bind(this));
-        this._modal.addEventListener('click', this._handleOverlayClick.bind(this));
+        page.addEventListener('keyup', this._bindedListenerEsc);
+        this._modal.addEventListener('click', this._bindedListenerOverlay);
+        
         this._crossButton.addEventListener('click', () => {
             this.close();
         });
     }
 
     removeEventListener() {
-        page.removeEventListener('keyup', this._handleEscClose);
-        this._modal.removeEventListener('click', this._handleOverlayClick);
+        page.removeEventListener('keyup', this._bindedListenerEsc);
+        this._modal.removeEventListener('click', this._bindedListenerOverlay);
     }
 }

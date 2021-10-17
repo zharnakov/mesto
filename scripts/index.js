@@ -3,6 +3,7 @@ import {FormValidator} from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 
 const photoGrid = document.querySelector('.photo-grid');
 const researcherName = document.querySelector('.researcher__title');
@@ -20,30 +21,36 @@ const formAddCard = document.querySelector('form[name="cardForm"]');
 const titleImageInput = document.querySelector('input[name="titleImage"]');
 const linkImageInput = document.querySelector('input[name="linkImage"]');
 
-const editProfilePopup = new Popup('#editProfile');
-const addCardPopup = new Popup('#addCard');
+const editProfilePopup = new PopupWithForm('#editProfile', handleSubmitFormEditProfile);
+const addCardPopup = new PopupWithForm('#addCard', handleSubmitFormAddCard);
 const picturePopup = new PopupWithImage('#openPic');
 
-//Обработка попапа добавления карточки
+function handleSubmitFormEditProfile(formValues) {
+    researcherOccupation.textContent = formValues.occupation;
+    researcherName.textContent = formValues.name;
+    editProfilePopup.close();
+}
 
-buttonAddCard.addEventListener('click', function() {
-    formAddCard.reset();
-    addCardPopup.open();
-    formAddCardValidation.disableButton();
-    formAddCardValidation.cleanErrorMesages();
-});
-
-function handleSubmitFormAddCard(evt) {
-    evt.preventDefault();
+function handleSubmitFormAddCard(formValues) {
     const data = {
-        name: titleImageInput.value, 
-        link: linkImageInput.value 
+        name: formValues.titleImage, 
+        link: formValues.linkImage 
     }
     photoGrid.prepend(createCard(data))
     addCardPopup.close();
 }
 
-formAddCard.addEventListener('submit', handleSubmitFormAddCard);
+//Обработка попапа добавления карточки
+
+buttonAddCard.addEventListener('click', function() {
+    addCardPopup.open();
+    formAddCardValidation.disableButton();
+    formAddCardValidation.cleanErrorMesages();
+});
+
+
+
+// formAddCard.addEventListener('submit', handleSubmitFormAddCard);
 
 
 //Обработка попапа редактирования профайла
@@ -56,13 +63,13 @@ buttonOpenEditProfile.addEventListener('click', function() {
     formEditProfileValidation.cleanErrorMesages();
 });
 
-function handleSubmitFormEditProfile(evt) {
-    evt.preventDefault();
-    editProfilePopup.close();
-    researcherOccupation.textContent = occupationInput.value;
-    researcherName.textContent = nameInput.value;
-}
-formEditProfile.addEventListener('submit', handleSubmitFormEditProfile);
+
+
+// const formEdit = new PopupWithForm ('#addCard', handleSubmitFormEditProfile);
+
+// const formAdd = new PopupWithForm ('#editProfile', handleSubmitFormAddCard);
+
+// formEditProfile.addEventListener('submit', handleSubmitFormEditProfile);
 
 const initialCards = [{
         name: 'Архыз',
@@ -90,23 +97,24 @@ const initialCards = [{
     }
 ];
 
+function createCard(data) {
+    const card = new Card (data, '#cardTemplate', handleCardClick);
+    const cardElement = card.generateCard();
+    return cardElement
+}
+
 function handleCardClick(image, title) {
     picturePopup.open(image, title);
 }
 
-
-
 const cardList = new Section ({
     items: initialCards, 
     renderer: (item) => {
-        const card = new Card (item, '#cardTemplate', handleCardClick);
-        const cardElement = card.generateCard();
-        cardList.addItem(cardElement)
+        cardList.addItem(createCard(item))
     }
 }, '.photo-grid');
 
 cardList.renderItems();
-
 
 const configObject = {
     formSelector: '.form',
