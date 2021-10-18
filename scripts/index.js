@@ -4,6 +4,7 @@ import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 
 const photoGrid = document.querySelector('.photo-grid');
 const researcherName = document.querySelector('.researcher__title');
@@ -25,9 +26,16 @@ const editProfilePopup = new PopupWithForm('#editProfile', handleSubmitFormEditP
 const addCardPopup = new PopupWithForm('#addCard', handleSubmitFormAddCard);
 const picturePopup = new PopupWithImage('#openPic');
 
+const getInfo = new UserInfo({
+    selecrorName: '.researcher__title',
+    selectorDescription: '.researcher__profile-text-discription'
+});
+
 function handleSubmitFormEditProfile(formValues) {
-    researcherOccupation.textContent = formValues.occupation;
-    researcherName.textContent = formValues.name;
+    getInfo.setUserInfo({
+        name: formValues.name,
+        occupation: formValues.occupation
+    });
     editProfilePopup.close();
 }
 
@@ -48,28 +56,16 @@ buttonAddCard.addEventListener('click', function() {
     formAddCardValidation.cleanErrorMesages();
 });
 
-
-
-// formAddCard.addEventListener('submit', handleSubmitFormAddCard);
-
-
 //Обработка попапа редактирования профайла
 
 buttonOpenEditProfile.addEventListener('click', function() {
     editProfilePopup.open();
-    nameInput.value = researcherName.textContent;
-    occupationInput.value = researcherOccupation.textContent;
+    const objectInfo = getInfo.getUserInfo();
+    nameInput.value = objectInfo.name;
+    occupationInput.value = objectInfo.occupation;
     formEditProfileValidation.disableButton();
     formEditProfileValidation.cleanErrorMesages();
 });
-
-
-
-// const formEdit = new PopupWithForm ('#addCard', handleSubmitFormEditProfile);
-
-// const formAdd = new PopupWithForm ('#editProfile', handleSubmitFormAddCard);
-
-// formEditProfile.addEventListener('submit', handleSubmitFormEditProfile);
 
 const initialCards = [{
         name: 'Архыз',
