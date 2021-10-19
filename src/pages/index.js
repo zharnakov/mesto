@@ -5,6 +5,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import '../pages/index.css';
+import { initialCards, configObject } from '../utils/constants.js'
 
 const photoGrid = document.querySelector('.photo-grid');
 
@@ -40,7 +41,7 @@ function handleSubmitFormAddCard(formValues) {
         name: formValues.titleImage, 
         link: formValues.linkImage 
     }
-    photoGrid.prepend(createCard(data))
+    cardList.addItem(createCard(data))
     addCardPopup.close();
 }
 
@@ -63,32 +64,6 @@ buttonOpenEditProfile.addEventListener('click', function() {
     formEditProfileValidation.cleanErrorMesages();
 });
 
-const initialCards = [{
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-
 function createCard(data) {
     const card = new Card (data, '#cardTemplate', handleCardClick);
     const cardElement = card.generateCard();
@@ -107,15 +82,6 @@ const cardList = new Section ({
 }, '.photo-grid');
 
 cardList.renderItems();
-
-const configObject = {
-    formSelector: '.form',
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__submit-button',
-    inactiveButtonClass: 'form__submit_inactive',
-    inputErrorClass: 'form__input_type_error',
-    errorClass: 'form__input-error_active'
-};
 
 const formAddCardValidation = new FormValidator (configObject, formAddCard);
 const formEditProfileValidation = new FormValidator (configObject, formEditProfile);

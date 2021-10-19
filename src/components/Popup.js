@@ -1,5 +1,5 @@
-const page = document.querySelector('.page');
-const escKeyCode = 27;
+// const escKeyCode = 27;
+import {escKeyCode} from '../utils/constants.js'
 
 export default class Popup {
     constructor(selector) {
@@ -7,6 +7,7 @@ export default class Popup {
         this._crossButton = this._modal.querySelector('.popup__container-close');
         this._bindedListenerOverlay = this._handleOverlayClick.bind(this);
         this._bindedListenerEsc = this._handleEscClose.bind(this);
+        this._handleCrossButton = this._handleCrossButtonClick.bind(this);
     }
 
     open() {
@@ -31,17 +32,19 @@ export default class Popup {
         }
     }
 
+    _handleCrossButtonClick() {
+        this.close()
+    }
+
     setEventListeners() {
-        page.addEventListener('keyup', this._bindedListenerEsc);
+        document.addEventListener('keyup', this._bindedListenerEsc);
         this._modal.addEventListener('click', this._bindedListenerOverlay);
-        
-        this._crossButton.addEventListener('click', () => {
-            this.close();
-        });
+        this._crossButton.addEventListener('click', this._handleCrossButton);
     }
 
     removeEventListener() {
-        page.removeEventListener('keyup', this._bindedListenerEsc);
+        document.removeEventListener('keyup', this._bindedListenerEsc);
         this._modal.removeEventListener('click', this._bindedListenerOverlay);
     }
 }
+
