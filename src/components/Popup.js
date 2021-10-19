@@ -1,4 +1,3 @@
-// const escKeyCode = 27;
 import {escKeyCode} from '../utils/constants.js'
 
 export default class Popup {
@@ -45,6 +44,7 @@ export default class Popup {
     removeEventListener() {
         document.removeEventListener('keyup', this._bindedListenerEsc);
         this._modal.removeEventListener('click', this._bindedListenerOverlay);
+        this._crossButton.removeEventListener('click', this._handleCrossButton);
     }
 }
 
