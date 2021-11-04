@@ -1,10 +1,11 @@
 class Card {
 
-    constructor (data, cardSelector, handleCardClick) {
+    constructor (data, cardSelector, handleCardClick, handlePopupButton, userId) {
         this._cardSelector = cardSelector;
-        this._title = data.name;
-        this._image = data.link;
+        this._card = data;
+        this._userId = userId;
         this._handleCardClick = handleCardClick;
+        this._handlePopupButton = handlePopupButton;
     }
 
 _getTemplate() {
@@ -20,10 +21,13 @@ _getTemplate() {
 generateCard() {
     this._element = this._getTemplate();
     this._picItem = this._element.querySelector('.photo-grid__item-image');
-    this._element.querySelector('.photo-grid__item-info-title').textContent = this._title;
-    this._picItem.src = this._image;
-    this._picItem.alt = this._title;
+    this._element.querySelector('.photo-grid__item-info-title').textContent = this._card.name;
+    this._picItem.src = this._card.link;
+    this._picItem.alt = this._card.name;
     this._buttonRemoveCard = this._element.querySelector('.photo-grid__button');
+    if (this._userId !== this._card.owner._id) {
+        this._buttonRemoveCard.classList.add('photo-grid__button-hidden')
+    }
     this._likeButton = this._element.querySelector('.photo-grid__item-info-like');
 
     this._setEventListeners();
@@ -38,18 +42,23 @@ _setEventListeners() {
       });
 
       this._buttonRemoveCard.addEventListener('click', () => {
-        this._handleRemoveCard();
+        this._openPopupWithButton();
+
       });
 
       this._likeButton.addEventListener('click', this._handleLikeClick);
 }
 
-_handleRemoveCard() {
+removeCard() {
     this._element.remove()
 }
 
+_openPopupWithButton() {
+    this._handlePopupButton(this._card._id);
+}
+
 _openPicturePopup() {
-    this._handleCardClick(this._image, this._title);
+    this._handleCardClick(this._card.link, this._card.name);
 }
 
 _handleLikeClick (evt) {
@@ -58,4 +67,4 @@ _handleLikeClick (evt) {
 
 }
 
-export {Card};
+export { Card };
