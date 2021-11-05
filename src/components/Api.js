@@ -4,6 +4,19 @@ export default class Api {
         this._headers = options.headers;
     }
 
+    changeUserPhoto(avatar) {
+        return fetch(this._url + "/v1/cohort-29/users/me/avatar", {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify(avatar)
+        }).then((res) => {
+            if (res.ok) {
+                return res.json();
+            }
+             return Promise.reject ('Произошла ошибка');
+        });
+    }
+
     changeLikeCardStatus(idCard, myLike) {
         if (myLike) {
             return fetch((`${this._url + "/v1/cohort-29/cards/likes"}/${idCard}`), {

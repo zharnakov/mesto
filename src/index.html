@@ -19,7 +19,9 @@
 
                 <div class="researcher__profile">
 
-                    <img class="researcher__profile-image" src="<%=require('./images/foto-face.png')%>" alt="Жак-Ив Кусто">
+                    <div class="researcher__profile-image-add">
+                        <img class="researcher__profile-image" src="" alt="Жак-Ив Кусто">
+                    </div>
 
                     <div class="researcher__profile-text">
 
@@ -83,6 +85,20 @@
                 <button class="popup__container-close" id="close_popup" aria-label="закрывающий крестик" type="button"></button>
             </div>
         </div>
+
+        <div class="popup" id="updateAvatar">
+            <div class="popup__container">
+                <form class="form" name="updateAvatar" novalidate>
+                    <h3 class="form__title">Обновить аватар</h3>
+                    <div class="form__section">
+                        <input class="form__input" type="url" name="linkImage" id="input-linkImage" placeholder="Ссылка на картинку" required>
+                        <span class="form__input-error input-linkImage-error"></span>
+                    </div>
+                    <button class="form__submit-button" type="submit">Сохранить</button>
+                </form>
+                <button class="popup__container-close" id="close_popup" aria-label="закрывающий крестик" type="button"></button>
+            </div>
+        </div> 
 
         <div class="popup" id="deleteCard">
             <div class="popup__container">

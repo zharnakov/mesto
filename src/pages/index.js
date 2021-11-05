@@ -11,13 +11,13 @@ import PopupWithSubmit from '../components/PopupWithSubmit.js';
 
 let cardList;
 
-// попап редактирования профайла
+
 const buttonOpenEditProfile = document.getElementById('open_popup_btn');
 const formEditProfile = document.querySelector('form[name="editProfile"]');
 const nameInput = document.querySelector('input[name="name"]');
 const occupationInput = document.querySelector('input[name="occupation"]');
-
-//  попап добавления карточки
+const avatar = document.querySelector('.researcher__profile-image-add');
+const formUpdateAvatar = document.querySelector('form[name="updateAvatar"]');
 const buttonAddCard = document.getElementById('open_popup_addcards');
 const formAddCard = document.querySelector('form[name="cardForm"]');
 
@@ -25,16 +25,13 @@ const picturePopup = new PopupWithImage('#openPic');
 const popupWithButton = new PopupWithSubmit('#deleteCard');
 const formAddCardValidation = new FormValidator(configObject, formAddCard);
 const formEditProfileValidation = new FormValidator(configObject, formEditProfile);
+const updateAvatarFormValidation = new FormValidator(configObject, formUpdateAvatar);
 
 const getInfo = new UserInfo({
     selecrorName: '.researcher__title',
     selectorDescription: '.researcher__profile-text-discription',
     selectorAvatar: '.researcher__profile-image'
 });
-
-function handleCardClick(image, title) {
-    picturePopup.open(image, title);
-}
 
 const api = new Api({
     url: "https://mesto.nomoreparties.co",
@@ -62,6 +59,7 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
 
         formAddCardValidation.enableValidation();
         formEditProfileValidation.enableValidation();
+        updateAvatarFormValidation.enableValidation();
 
         const editProfilePopup = new PopupWithForm('#editProfile', handleSubmitFormEditProfile);
 
@@ -79,7 +77,7 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
                 name: formValues.name,
                 about: formValues.occupation
             }
-        
+
             api.changeUserInfo(data)
                 .then((userObject) => {
                     getInfo.setUserInfo({
@@ -104,6 +102,7 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
                 name: formValues.titleImage,
                 link: formValues.linkImage
             }
+
             api.addCard(data)
                 .then((objectCard) => {
                     cardList.addItem(createCard(objectCard))
@@ -112,31 +111,60 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
                 .catch((err) => alert(err));
         }
 
+        const updateAvatar = new PopupWithForm('#updateAvatar', handleSubmitFormUpdateAvatar);
+
+        avatar.addEventListener('click', function () {
+            updateAvatar.open();
+            updateAvatarFormValidation.disableButton();
+            updateAvatarFormValidation.cleanErrorMesages();
+        });
+
+        function handleSubmitFormUpdateAvatar(formValues) {
+            const data = {
+                avatar: formValues.linkImage
+            }
+
+            // textContent = Сохранение... 
+            api.changeUserPhoto(data)
+                .then((objectUser) => {
+                    getInfo.setUserAvatar(objectUser.avatar)
+                    updateAvatar.close();
+                })
+                .catch((err) => alert(err))
+                .finally(() => {
+                    // Возвращаешь обычное название кнопки textContent = normal
+                });
+        }
+
         function createCard(data) {
             const card = new Card(data, '#cardTemplate', handleCardClick, handlePopupButton, user._id, likeHandler);
             const cardElement = card.generateCard();
-            
+
+            function handleCardClick(image, title) {
+                picturePopup.open(image, title);
+            }
+
             function handlePopupButton(idCard) {
                 popupWithButton.open();
                 popupWithButton.setEventListeners();
                 popupWithButton.setSubmitHandler(() => {
                     api.deleteCard(idCard)
-                    .then(() => {
-                        popupWithButton.close();
-                        card.removeCard();
-                    })
-                    .catch((err) => alert(err));
+                        .then(() => {
+                            popupWithButton.close();
+                            card.removeCard();
+                        })
+                        .catch((err) => alert(err));
                 })
             }
 
             function likeHandler() {
                 api.changeLikeCardStatus(data._id, card.isLiked())
-                .then((objectCard)=> {
-                    card.updateCard(objectCard);
-                })
-                .catch((err) => alert(err));
+                    .then((objectCard) => {
+                        card.updateCard(objectCard);
+                    })
+                    .catch((err) => alert(err));
             }
-    
+
             return cardElement
         }
     })
