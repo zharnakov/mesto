@@ -52,8 +52,6 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
         })
         getInfo.setUserAvatar(user.avatar)
 
-        console.log(cards)
-
         cardList = new Section({
             items: cards,
             renderer: (item) => {
@@ -115,7 +113,7 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
         }
 
         function createCard(data) {
-            const card = new Card(data, '#cardTemplate', handleCardClick, handlePopupButton, user._id);
+            const card = new Card(data, '#cardTemplate', handleCardClick, handlePopupButton, user._id, likeHandler);
             const cardElement = card.generateCard();
             
             function handlePopupButton(idCard) {
@@ -130,12 +128,17 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
                     .catch((err) => alert(err));
                 })
             }
+
+            function likeHandler() {
+                api.changeLikeCardStatus(data._id, card.isLiked())
+                .then((objectCard)=> {
+                    card.updateCard(objectCard);
+                })
+                .catch((err) => alert(err));
+            }
     
             return cardElement
         }
-
-        
-
     })
     .catch((err) => alert(err));
 

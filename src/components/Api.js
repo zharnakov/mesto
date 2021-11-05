@@ -4,6 +4,30 @@ export default class Api {
         this._headers = options.headers;
     }
 
+    changeLikeCardStatus(idCard, myLike) {
+        if (myLike) {
+            return fetch((`${this._url + "/v1/cohort-29/cards/likes"}/${idCard}`), {
+                method: 'DELETE',
+                headers: this._headers
+            }).then((res) => {
+                if (res.ok) {
+                    return res.json();
+                }
+                 return Promise.reject ('Произошла ошибка');
+            }); 
+        } else {
+            return fetch((`${this._url + "/v1/cohort-29/cards/likes"}/${idCard}`), {
+                method: 'PUT',
+                headers: this._headers
+            }).then((res) => {
+                if (res.ok) {
+                    return res.json();
+                }
+                 return Promise.reject ('Произошла ошибка');
+            }); 
+        }
+    }
+
     deleteCard(idCard) {
         return fetch((`${this._url + "/v1/cohort-29/cards"}/${idCard}`), {
             method: 'DELETE',
