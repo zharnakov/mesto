@@ -1,0 +1,9 @@
+.photo-grid__item-info-counter {
+    color: #000000;
+    margin-right: 26px;
+    text-align: end;
+    margin-top: -32px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+}

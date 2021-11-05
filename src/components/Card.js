@@ -21,6 +21,8 @@ _getTemplate() {
 generateCard() {
     this._element = this._getTemplate();
     this._picItem = this._element.querySelector('.photo-grid__item-image');
+    this._counter = this._element.querySelector('.photo-grid__item-info-counter');
+    this._counter.textContent = this._card.likes.length
     this._element.querySelector('.photo-grid__item-info-title').textContent = this._card.name;
     this._picItem.src = this._card.link;
     this._picItem.alt = this._card.name;

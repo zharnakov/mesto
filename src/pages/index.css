@@ -23,6 +23,7 @@
 @import url(../blocks/photo-grid/__item-image/photo-grid__item-image.css);
 @import url(../blocks/photo-grid/__button/photo-grid__button.css);
 @import url(../blocks/photo-grid/__button-hidden/photo-grid__button-hidden.css);
+@import url(../blocks/photo-grid/__item-info-counter/photo-grid__item-info-counter.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__logo/footer__logo.css);
 @import url(../blocks/popup/popup.css);
