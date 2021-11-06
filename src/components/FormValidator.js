@@ -4,7 +4,7 @@ class FormValidator {
         this._formElement = formElement;
         this._inputListArray = Array.from(this._formElement.querySelectorAll(this._configObject.inputSelector));
         this._buttonElement = this._formElement.querySelector(this._configObject.submitButtonSelector);
-
+        this._buttonName = this._buttonElement.textContent
     }
 
     _showInputError(inputElement, errorMessage) {
@@ -68,6 +68,14 @@ class FormValidator {
         this._inputListArray.forEach((inputElement) => {
             this._hideInputError(inputElement);
         });
+    }
+
+    changeNameButton(isSaving) {
+        if (isSaving) {
+            this._buttonElement.textContent = "Сохранение..."
+        } else {
+            this._buttonElement.textContent = this._buttonName
+        }
     }
 }
 

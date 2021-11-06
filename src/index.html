@@ -19,15 +19,17 @@
 
                 <div class="researcher__profile">
 
-                    <img class="researcher__profile-image" src="<%=require('./images/foto-face.png')%>" alt="Жак-Ив Кусто">
+                    <div class="researcher__profile-image-add">
+                        <img class="researcher__profile-image" src="" alt="Жак-Ив Кусто">
+                    </div>
 
                     <div class="researcher__profile-text">
 
                         <div class="researcher__profile-text-top">
-                            <h1 class="researcher__title">Жак-Ив Кусто</h1>
+                            <h1 class="researcher__title"></h1>
                             <button class="researcher__edit-button" id="open_popup_btn" aria-label="Редактировать профиль" type="button"></button>
                         </div>
-                        <p class="researcher__profile-text-discription">Исследователь океана</p>
+                        <p class="researcher__profile-text-discription"></p>
 
                     </div>
 
@@ -84,6 +86,30 @@
             </div>
         </div>
 
+        <div class="popup" id="updateAvatar">
+            <div class="popup__container">
+                <form class="form" name="updateAvatar" novalidate>
+                    <h3 class="form__title">Обновить аватар</h3>
+                    <div class="form__section">
+                        <input class="form__input" type="url" name="linkImage" id="input-linkImage" placeholder="Ссылка на картинку" required>
+                        <span class="form__input-error input-linkImage-error"></span>
+                    </div>
+                    <button class="form__submit-button" type="submit">Сохранить</button>
+                </form>
+                <button class="popup__container-close" id="close_popup" aria-label="закрывающий крестик" type="button"></button>
+            </div>
+        </div> 
+
+        <div class="popup" id="deleteCard">
+            <div class="popup__container">
+                <form class="form" name="deleteItem">
+                    <h3 class="form__title form__title_margin">Вы уверены?</h3>
+                    <button class="form__submit-button" type="submit">Да</button>
+                </form>
+                <button class="popup__container-close" id="close_popup_deleteCard" aria-label="закрывающий крестик" type="button"></button>
+            </div>
+        </div>
+
         <div class="popup" id="openPic">
             <div class="popup__container popup__container_background_none">
                 <img class="open-pic" src="#" alt="#">
@@ -102,6 +128,7 @@
                 <h2 class="photo-grid__item-info-title"></h2>
                 <button class="photo-grid__item-info-like" aria-label="Лайк-сердечко" type="button"></button>
             </div>
+            <span class="photo-grid__item-info-counter"></span>
         </article>
     </template>
 

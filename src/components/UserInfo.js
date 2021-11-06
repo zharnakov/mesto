@@ -1,9 +1,8 @@
-import Popup from "./Popup.js";
-
-export default class UserInfo {
+export default class UserInfo{
     constructor(data) {
     this._userName = document.querySelector(data.selecrorName);
     this._userOccupation = document.querySelector(data.selectorDescription);
+    this._userAvatar = document.querySelector(data.selectorAvatar);
     }
 
     getUserInfo() {
@@ -17,5 +16,9 @@ export default class UserInfo {
     setUserInfo(data) {
         this._userName.textContent = data.name
         this._userOccupation.textContent = data.occupation
+    }
+
+    setUserAvatar(avatar) {
+        this._userAvatar.src = avatar;
     }
 }
