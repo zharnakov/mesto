@@ -78,6 +78,7 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
                 about: formValues.occupation
             }
 
+            formEditProfileValidation.changeNameButton(true)
             api.changeUserInfo(data)
                 .then((userObject) => {
                     getInfo.setUserInfo({
@@ -86,7 +87,9 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
                     })
                     editProfilePopup.close()
                 })
-                .catch((err) => alert(err));
+                .catch((err) => alert(err))
+                .finally(() => formEditProfileValidation.changeNameButton(false))
+            
         }
 
         const addCardPopup = new PopupWithForm('#addCard', handleSubmitFormAddCard);
@@ -102,13 +105,14 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
                 name: formValues.titleImage,
                 link: formValues.linkImage
             }
-
+            formAddCardValidation.changeNameButton(true)
             api.addCard(data)
                 .then((objectCard) => {
                     cardList.addItem(createCard(objectCard))
                     addCardPopup.close()
                 })
-                .catch((err) => alert(err));
+                .catch((err) => alert(err))
+                .finally(() => formAddCardValidation.changeNameButton(false))
         }
 
         const updateAvatar = new PopupWithForm('#updateAvatar', handleSubmitFormUpdateAvatar);
@@ -124,16 +128,14 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
                 avatar: formValues.linkImage
             }
 
-            // textContent = Сохранение... 
+            updateAvatarFormValidation.changeNameButton(true)
             api.changeUserPhoto(data)
                 .then((objectUser) => {
                     getInfo.setUserAvatar(objectUser.avatar)
                     updateAvatar.close();
                 })
                 .catch((err) => alert(err))
-                .finally(() => {
-                    // Возвращаешь обычное название кнопки textContent = normal
-                });
+                .finally(() => updateAvatarFormValidation.changeNameButton(false));
         }
 
         function createCard(data) {
