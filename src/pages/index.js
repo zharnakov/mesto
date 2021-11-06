@@ -125,7 +125,7 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
 
         function handleSubmitFormUpdateAvatar(formValues) {
             const data = {
-                avatar: formValues.linkImage
+                avatar: formValues.avatarLink
             }
 
             updateAvatarFormValidation.changeNameButton(true)
