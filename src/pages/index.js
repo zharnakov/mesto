@@ -34,7 +34,7 @@ const getInfo = new UserInfo({
 });
 
 const api = new Api({
-    url: "https://mesto.nomoreparties.co",
+    url: "https://mesto.nomoreparties.co/v1/cohort-29",
     headers: {
         Authorization: "49b668cb-f214-4312-b556-8e7c4d7fb9cc",
         "content-type": "application/json"
@@ -78,7 +78,7 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
                 about: formValues.occupation
             }
 
-            formEditProfileValidation.changeNameButton(true)
+            editProfilePopup.renderLoading(true)
             api.changeUserInfo(data)
                 .then((userObject) => {
                     getInfo.setUserInfo({
@@ -88,7 +88,7 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
                     editProfilePopup.close()
                 })
                 .catch((err) => alert(err))
-                .finally(() => formEditProfileValidation.changeNameButton(false))
+                .finally(() => editProfilePopup.renderLoading(false))
             
         }
 
@@ -105,14 +105,14 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
                 name: formValues.titleImage,
                 link: formValues.linkImage
             }
-            formAddCardValidation.changeNameButton(true)
+            addCardPopup.renderLoading(true)
             api.addCard(data)
                 .then((objectCard) => {
                     cardList.addItem(createCard(objectCard))
                     addCardPopup.close()
                 })
                 .catch((err) => alert(err))
-                .finally(() => formAddCardValidation.changeNameButton(false))
+                .finally(() => addCardPopup.renderLoading(false))
         }
 
         const updateAvatar = new PopupWithForm('#updateAvatar', handleSubmitFormUpdateAvatar);
@@ -128,14 +128,14 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
                 avatar: formValues.avatarLink
             }
 
-            updateAvatarFormValidation.changeNameButton(true)
+            updateAvatar.renderLoading(true)
             api.changeUserPhoto(data)
                 .then((objectUser) => {
                     getInfo.setUserAvatar(objectUser.avatar)
                     updateAvatar.close();
                 })
                 .catch((err) => alert(err))
-                .finally(() => updateAvatarFormValidation.changeNameButton(false));
+                .finally(() => updateAvatar.renderLoading(false));
         }
 
         function createCard(data) {
@@ -148,7 +148,6 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
 
             function handlePopupButton(idCard) {
                 popupWithButton.open();
-                popupWithButton.setEventListeners();
                 popupWithButton.setSubmitHandler(() => {
                     api.deleteCard(idCard)
                         .then(() => {
