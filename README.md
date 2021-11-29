@@ -19,5 +19,5 @@
 10. Проект собран при помощи Webpack
 
 **Ссылка на GitHub Pages**
-https://zharnakov.github.io/mesto/
+https://zharnakov.github.io/mesto/dist
 
